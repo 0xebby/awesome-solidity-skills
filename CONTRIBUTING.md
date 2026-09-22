@@ -21,8 +21,8 @@ protocol) or to a specific security reference, it doesn't go in.
    description: One or two sentences. Say what it does AND when to use it — this is what Claude matches on.
    ---
    ```
-
 3. Follow the structure of the existing skills:
+
    - **The problem / principle** — what goes wrong, or the rule.
    - **Pattern** — a minimal, compilable Solidity snippet.
    - **Design notes / variants** — tradeoffs, gas, alternatives.
@@ -48,7 +48,7 @@ protocol) or to a specific security reference, it doesn't go in.
 ## What gets rejected
 
 - Unsourced patterns or "I think this is how it works."
-- Skills that duplicate an existing one — extend the existing skill instead.
+- Skills that duplicate an existing one: extend the existing skill instead.
 - Anything encouraging insecure shortcuts (skipping validation, disabling guards for gas, etc.)
   without a clearly documented, bounded rationale.
 - Marketing for a specific protocol or token.
@@ -66,4 +66,4 @@ for f in skills/*/SKILL.md; do
 done
 ```
 
-By contributing you agree your work is released under the repository's [MIT License](LICENSE).
+**By contributing you agree your work is released under the repository's [MIT License](LICENSE).**
