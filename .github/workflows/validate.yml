@@ -1,0 +1,46 @@
+name: validate-skills
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  frontmatter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate each SKILL.md
+        run: |
+          status=0
+          shopt -s nullglob
+          found=0
+          for f in skills/*/SKILL.md; do
+            found=1
+            dir=$(basename "$(dirname "$f")")
+            if ! grep -q "^name: ${dir}$" "$f"; then
+              echo "::error file=${f}::frontmatter 'name' must equal directory name '${dir}'"
+              status=1
+            fi
+            if ! grep -q "^description:" "$f"; then
+              echo "::error file=${f}::missing 'description' in frontmatter"
+              status=1
+            fi
+            # description should say when to use it (a rough heuristic: mentions "use" or "when")
+            if ! grep -iqE "^description:.*(use|when)" "$f"; then
+              echo "::warning file=${f}::description should say WHEN to use the skill"
+            fi
+          done
+          if [ "$found" -eq 0 ]; then
+            echo "::error::no skills found under skills/*/SKILL.md"
+            status=1
+          fi
+          # Every skill directory must be linked from the README table.
+          for d in skills/*/; do
+            name=$(basename "$d")
+            if ! grep -q "skills/${name}/SKILL.md" README.md; then
+              echo "::error file=README.md::skill '${name}' is not listed in the README table"
+              status=1
+            fi
+          done
+          exit $status
