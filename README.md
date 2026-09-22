@@ -33,7 +33,7 @@ loads a skill on its own when a task matches the skill's `description`.
 **All skills (clone into your project):**
 
 ```bash
-git clone https://github.com/0xebby/awesome-solidity-skills.git
+git clone https://github.com/mystic0xx/awesome-solidity-skills.git
 mkdir -p .claude/skills
 cp -r awesome-solidity-skills/skills/* .claude/skills/
 ```
@@ -74,7 +74,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). The bar: every claim traceable to real, 
 
 ## Author
 
-Created and maintained by [**mystic0x**](https://github.com/0xebby).
+Created and maintained by [**mystic0xx**](https://github.com/mystic0xx).
 
 ## License
 
