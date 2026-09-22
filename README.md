@@ -1,19 +1,14 @@
-# Claude Smart Contract Skills
-
-[![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+# Awesome Solidity Smart Contract Skills
 
 Battle-tested smart-contract patterns, packaged as **[Claude Code](https://claude.com/claude-code)
 skills** you can drop into your own projects. Each skill is a focused, self-contained playbook for
-one recurring Solidity problem — what goes wrong, the pattern that fixes it, a working snippet, a
+one recurring Solidity problem: what goes wrong, the pattern that fixes it, a working snippet, a
 checklist, and pointers to the reference implementations it was distilled from.
 
 Every skill is grounded in real source read from the protocols indexed by
 [awesome-smart-contracts](https://github.com/shafu0x/awesome-smart-contracts) (OpenZeppelin, Solady,
 Solmate, Morpho-blue, Sablier, Merit, Uniswap, Aave, …) and the security chapters of
-[*Mastering Ethereum*](https://github.com/ethereumbook/ethereumbook). Nothing here is generated from
-memory alone.
+[*Mastering Ethereum*](https://github.com/ethereumbook/ethereumbook).
 
 ## Skills
 
@@ -68,20 +63,19 @@ use Claude Code at all.
 
 ## Scope
 
-Solidity, on-chain, security- and correctness-oriented. These are patterns and disciplines, not a
-substitute for an audit. They encode what audited protocols already do so your first draft starts
+Solidity, on-chain, security and correctness-oriented. These are patterns and disciplines, not a
+substitute for an audit. They encode what **audited protocols** already do so your first draft starts
 closer to safe.
 
 ## Contributing
 
-New skills, corrections, and better reference snippets are welcome via pull request — see
-[CONTRIBUTING.md](CONTRIBUTING.md). The bar: every claim traceable to real, audited source or to a
-cited section of *Mastering Ethereum*.
+New skills, corrections, and better reference snippets are welcome via PRs.
+See [CONTRIBUTING.md](CONTRIBUTING.md). The bar: every claim traceable to real, audited source or to a cited section of *Mastering Ethereum*.
 
 ## Author
 
-Created and maintained by [**0xcoda**](https://github.com/0xcoda).
+Created and maintained by [**0xcoda**](https://github.com/0xebby).
 
 ## License
 
-[MIT](LICENSE) — do whatever you want, no warranty.
+[MIT](LICENSE) — do whatever you want.
