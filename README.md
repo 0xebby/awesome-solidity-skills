@@ -33,21 +33,21 @@ loads a skill on its own when a task matches the skill's `description`.
 **All skills (clone into your project):**
 
 ```bash
-git clone https://github.com/0xcoda/claude-smart-contract-skills.git
+git clone https://github.com/0xebby/awesome-solidity-skills.git
 mkdir -p .claude/skills
-cp -r claude-smart-contract-skills/skills/* .claude/skills/
+cp -r awesome-solidity-skills/skills/* .claude/skills/
 ```
 
 **Personal (available in every project):**
 
 ```bash
-cp -r claude-smart-contract-skills/skills/* ~/.claude/skills/
+cp -r awesome-solidity-skills/skills/* ~/.claude/skills/
 ```
 
 **One skill only:**
 
 ```bash
-cp -r claude-smart-contract-skills/skills/reentrancy-guards ~/.claude/skills/
+cp -r awesome-solidity-skills/skills/reentrancy-guards ~/.claude/skills/
 ```
 
 Each skill is just a directory containing a `SKILL.md` with YAML frontmatter (`name`, `description`)
@@ -74,7 +74,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). The bar: every claim traceable to real, 
 
 ## Author
 
-Created and maintained by [**0xcoda**](https://github.com/0xebby).
+Created and maintained by [**0xebby**](https://github.com/0xebby).
 
 ## License
 
