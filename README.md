@@ -1,4 +1,4 @@
-# Awesome Solidity Smart Contract Skills
+# Awesome Solidity Smart Contract Skills for Agents.
 
 Battle-tested smart-contract patterns, packaged as **[Claude Code](https://claude.com/claude-code)
 skills** you can drop into your own projects. Each skill is a focused, self-contained playbook for
