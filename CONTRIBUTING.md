@@ -61,9 +61,12 @@ skill has a `name` and `description` and the name matches its directory:
 ```bash
 for f in skills/*/SKILL.md; do
   dir=$(basename "$(dirname "$f")")
-  grep -q "^name: $dir$" "$f" || echo "MISMATCH: $f (name must equal '$dir')"
+  got=$(grep -m1 -E "^name:[[:space:]]*" "$f" | sed -E "s/^name:[[:space:]]*//; s/[[:space:]]+$//; s/\r$//")
+  [ "$got" = "$dir" ] || echo "MISMATCH: $f (name '$got' must equal '$dir')"
   grep -q "^description:" "$f" || echo "MISSING description: $f"
 done
 ```
+
+The `name` check tolerates extra spaces after the colon and CRLF line endings, matching CI.
 
 **By contributing you agree your work is released under the repository's [MIT License](LICENSE).**

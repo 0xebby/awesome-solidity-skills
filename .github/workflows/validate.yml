@@ -18,8 +18,10 @@ jobs:
           for f in skills/*/SKILL.md; do
             found=1
             dir=$(basename "$(dirname "$f")")
-            if ! grep -q "^name: ${dir}$" "$f"; then
-              echo "::error file=${f}::frontmatter 'name' must equal directory name '${dir}'"
+            # Extract the name value, tolerating extra spaces after the colon and CRLF line endings.
+            got=$(grep -m1 -E "^name:[[:space:]]*" "$f" | sed -E "s/^name:[[:space:]]*//; s/[[:space:]]+$//; s/\r$//")
+            if [ "$got" != "$dir" ]; then
+              echo "::error file=${f}::frontmatter 'name' (\"${got}\") must equal directory name '${dir}'"
               status=1
             fi
             if ! grep -q "^description:" "$f"; then
