@@ -33,21 +33,21 @@ loads a skill on its own when a task matches the skill's `description`.
 **All skills (clone into your project):**
 
 ```bash
-git clone https://github.com/mystic0xx/awesome-solidity-skills.git
+git clone https://github.com/mystic0xx/awesome-solidity-smart-contracts-skills.git
 mkdir -p .claude/skills
-cp -r awesome-solidity-skills/skills/* .claude/skills/
+cp -r awesome-solidity-smart-contracts-skills/skills/* .claude/skills/
 ```
 
 **Personal (available in every project):**
 
 ```bash
-cp -r awesome-solidity-skills/skills/* ~/.claude/skills/
+cp -r awesome-solidity-smart-contracts-skills/skills/* ~/.claude/skills/
 ```
 
 **One skill only:**
 
 ```bash
-cp -r awesome-solidity-skills/skills/reentrancy-guards ~/.claude/skills/
+cp -r awesome-solidity-smart-contracts-skills/skills/reentrancy-guards ~/.claude/skills/
 ```
 
 Each skill is just a directory containing a `SKILL.md` with YAML frontmatter (`name`, `description`)
