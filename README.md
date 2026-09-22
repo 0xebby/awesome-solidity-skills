@@ -74,7 +74,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). The bar: every claim traceable to real, 
 
 ## Author
 
-Created and maintained by [**0xebby**](https://github.com/0xebby).
+Created and maintained by [**mystic0x**](https://github.com/0xebby).
 
 ## License
 
