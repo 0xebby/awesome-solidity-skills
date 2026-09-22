@@ -2,19 +2,18 @@
 name: fixed-point-rounding
 description: Do fixed-point arithmetic without overflow or precision loss, and always round in the protocol's favor. Use when computing shares, proportional payouts, interest, prices, or any a*b/c where inputs are large or user-controlled.
 ---
+# Fixed-point Math & Rounding
 
-# Fixed-point math & rounding
-
-## Two failures to avoid
+## Two kinds of failures to avoid:
 
 1. **Overflow on the intermediate product.** `a * b / c` computes `a * b` first. Even in Solidity
    0.8+ (which reverts on overflow rather than wrapping), a legitimate large `a * b` reverts before
-   the divide brings it back into range — a denial of service on valid inputs.
+   the divide brings it back into range a denial of service on valid inputs.
 2. **Rounding that leaks value.** Integer division truncates. If you round the *wrong* way, dust
    accumulates against the protocol and, over many operations, drains the pool or lets the last
    claimant find nothing left.
 
-## Rule 1 — full-precision mulDiv
+## Rule 1: Full-precision mulDiv
 
 Use a `mulDiv` that carries the product at 512-bit intermediate precision, so `a * b` never
 overflows before the division.
@@ -26,9 +25,9 @@ uint256 shares = FixedPointMathLib.fullMulDiv(assets, totalShares, totalAssets);
 uint256 up     = FixedPointMathLib.fullMulDivUp(assets, totalShares, totalAssets); // rounds up
 ```
 
-(OpenZeppelin's `Math.mulDiv` provides the same full-precision guarantee.)
+**(OpenZeppelin's `Math.mulDiv` provides the same full-precision guarantee.)**
 
-## Rule 2 — round in the protocol's favor
+## Rule 2: Round in the Protocol's favor
 
 The invariant: **the protocol must never round in a way that lets a user extract more than they put
 in.** Concretely:
@@ -41,9 +40,9 @@ in.** Concretely:
 
 Mnemonic: *round against the party pulling value out of the system.* This is why vaults keep a `mulDivUp`
 alongside `mulDiv` and choose per call site. A single flipped rounding direction is a real,
-audited-for bug class (the ERC-4626 "inflation attack" is rounding + `balanceOf`-accounting combined).
+audited-for bug class (the ERC-4626 **"inflation attack"** is rounding + `balanceOf`-accounting combined).
 
-## Rule 3 — order operations to preserve precision
+## Rule 3: Order operations to preserve precision
 
 Multiply before you divide (`a * b / c`, not `(a / c) * b`) so you don't truncate an intermediate to
 zero. With a full-precision `mulDiv` this is automatic; if you must hand-roll, keep the divide last.
@@ -51,7 +50,7 @@ zero. With a full-precision `mulDiv` this is automatic; if you must hand-roll, k
 ## Notes
 
 - **Decimals.** Normalize tokens to a common scale before comparing/summing; an 6-decimal USDC amount
-  and an 18-decimal DAI amount are not directly addable.
+  and an 18-decimal WETH or DAI amounts are not directly addable.
 - **No floating point.** The EVM has none. All "decimals" are fixed-point integers; document the
   scale (e.g. WAD = 1e18) and apply it consistently.
 - **Zero denominators.** Guard `totalAssets == 0` / `totalSupply == 0` bootstrap cases explicitly.
@@ -69,4 +68,4 @@ zero. With a full-precision `mulDiv` this is automatic; if you must hand-roll, k
 - Solady `src/utils/FixedPointMathLib.sol`
 - OpenZeppelin `contracts/utils/math/Math.sol` (`mulDiv`)
 - Solmate `src/utils/FixedPointMathLib.sol`
-- Mastering Ethereum, ch. 9 — "Floating Point and Precision"
+- Mastering Ethereum, ch. 9: "Floating Point and Precision"

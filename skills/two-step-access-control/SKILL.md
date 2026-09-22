@@ -1,9 +1,8 @@
 ---
 name: two-step-access-control
-description: Choose and wire the weakest sufficient access-control primitive — Ownable, Ownable2Step, or roles — and never leave a funds-affecting owner on single-step transfer. Use when adding any privileged function.
+description: Choose and wire the weakest sufficient access-control primitive: Ownable, Ownable2Step, or roles: and never leave a funds-affecting owner on single-step transfer. Use when adding any privileged function.
 ---
-
-# Two-step access control
+# Two-step Access Control
 
 ## The principle
 
@@ -12,13 +11,13 @@ owner can affect funds. More authority than the job needs is more to lose when a
 
 ## The three tiers
 
-### 1. `Ownable` — one owner, one privilege level
+### 1. `Ownable`: one owner, one privilege level
 
 Fine for a contract whose owner only tweaks non-critical config. The danger: `transferOwnership` is
 **single-step**. Send it to a typo'd or uncontrolled address and the contract is governance-bricked
 forever.
 
-### 2. `Ownable2Step` — the default for anything holding value
+### 2. `Ownable2Step:` the default for anything holding value
 
 Transfer is *proposed* by the current owner, then must be *accepted* by the new owner. A wrong
 address simply never accepts, and nothing changes.
@@ -38,7 +37,7 @@ contract Treasury is Ownable2Step {
 **Rule of thumb:** if the owner can move money, change payout gates, or rotate a trusted key, use
 `Ownable2Step`, not `Ownable`.
 
-### 3. Roles — when there is more than one principal
+### 3. Roles: when there is more than one principal
 
 When a governor (disputes/pauses), a keeper (reports), and an admin (configures) are distinct
 actors, don't fold them into one owner. Give each a role and check the specific role per action.
@@ -51,16 +50,16 @@ bytes32 public constant REPORTER_ROLE = keccak256("REPORTER_ROLE");
 function report(...) external onlyRole(REPORTER_ROLE) { /* ... */ }
 ```
 
-- **OpenZeppelin `AccessControl`** — grant/revoke, role admins, enumerable.
-- **Solady `OwnableRoles`** (`src/auth/OwnableRoles.sol`) — bitmap roles, gas-cheap.
+- **OpenZeppelin `AccessControl:`** grant/revoke, role admins, enumerable.
+- **Solady `OwnableRoles`** (`src/auth/OwnableRoles.sol`): bitmap roles, gas-cheap.
 - **Sablier** separates an admin surface (`Adminable`/`RoleAdminable` + a `Comptroller`) from the
-  operational surface — a clean model when governance and operations differ.
+  operational surface: a clean model when governance and operations differ.
 
 ## Anti-patterns
 
-- `tx.origin` for authorization — phishable; a malicious intermediate contract passes the check. Use
+- `tx.origin` for authorization: phishable; a malicious intermediate contract passes the check. Use
   `msg.sender`.
-- One `owner` holding every unrelated power — a single compromised key loses everything.
+- One `owner` holding every unrelated power: a single compromised key loses everything.
 - Single-step transfer on a funds-affecting contract.
 
 ## Checklist
@@ -75,4 +74,4 @@ function report(...) external onlyRole(REPORTER_ROLE) { /* ... */ }
 - OpenZeppelin `contracts/access/Ownable2Step.sol`, `AccessControl.sol`
 - Solady `src/auth/Ownable.sol`, `OwnableRoles.sol`
 - Sablier `utils/src/RoleAdminable.sol`, `Adminable.sol`
-- Mastering Ethereum, ch. 9 — "Smart Contracts Misconfiguration"
+- Mastering Ethereum, ch. 9: "Smart Contracts Misconfiguration"

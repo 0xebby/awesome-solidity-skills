@@ -1,16 +1,15 @@
 ---
 name: singleton-vs-clones
-description: Choose deployment architecture when you need many instances of the same logic — full deploy per instance, EIP-1167 minimal-proxy clones, or a single singleton keyed by a params hash. Use when a factory does `new Contract(...)` in a loop or per user action.
+description: Choose deployment architecture when you need many instances of the same logic: full deploy per instance, EIP-1167 minimal-proxy clones, or a single singleton keyed by a params hash. Use when a factory does `new Contract(...)` in a loop or per user action.
 ---
-
-# Singleton vs. clones vs. per-instance deploy
+# Singleton vs. Clones vs. Per-instance deploy
 
 ## The decision
 
-You have logic that recurs — a market, a vault, a campaign, a stream — and you'll create many of
+You have logic that recurs, be it a market, a vault, a campaign, a stream... and you'll create many of
 them. Three architectures, from most expensive to cheapest per instance:
 
-### A. Full deploy per instance — `new Contract(...)`
+### A. Full deploy per instance:`new Contract(...)`
 
 Each instance is its own full bytecode at its own address.
 
@@ -36,7 +35,7 @@ function create(bytes calldata initData) external returns (address instance) {
 ```
 
 - **Pro:** keeps the per-instance-address model; slashes deploy gas to near-constant.
-- **Con:** `immutable` constructor args become `initialize`-set storage — so you must guard
+- **Con:** `immutable` constructor args become `initialize`-set storage, so you must guard
   `initialize` against re-calling, and re-check reentrancy on the init path. Slight runtime overhead
   per call (the delegatecall hop). Use `Clones.cloneDeterministic` for CREATE2 addresses.
 - **Tooling:** OpenZeppelin `Clones`, Solady `LibClone` (also supports clones-with-immutable-args,
@@ -45,7 +44,7 @@ function create(bytes calldata initData) external returns (address instance) {
 ### C. Singleton keyed by a params hash
 
 The *entire* protocol is one immutable contract; every "instance" is an entry in a mapping keyed by
-the hash of its parameters. This is Morpho-blue: all lending markets live in one ~600-line singleton,
+the hash of its parameters. This is **[Morpho-blue](https://github.com/morpho-org/morpho-blue/blob/main/src/Morpho.sol/)**: all lending markets live in one ~600-line singleton,
 and creating a market is an `SSTORE`, not a `CREATE`.
 
 ```solidity
@@ -70,7 +69,7 @@ function create(Params calldata p) external {
   pragmatic win.
 - Creation cost dominates and you can accept a rigid, protocol-wide core → **C (singleton)**.
 
-Whichever you pick, **decide explicitly** and record why — "we deploy per instance to isolate blast
+Whichever you pick, **decide explicitly** and record why: "we deploy per instance to isolate blast
 radius" is a fine decision; defaulting into full deploys because `new` was easiest is not.
 
 ## Checklist
