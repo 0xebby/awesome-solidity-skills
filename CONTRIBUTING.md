@@ -1,7 +1,7 @@
 # Contributing
 
-Thanks for helping grow this collection. Pull requests are welcome — new skills, corrections to
-existing ones, better reference snippets, and gas/security updates as the ecosystem moves.
+Thanks for helping grow this collection. Pull requests are welcome: a. new skills, b. corrections to
+existing ones, c. better reference snippets, and d. gas/security updates as the ecosystem moves.
 
 ## The one rule
 
@@ -23,16 +23,16 @@ protocol) or to a specific security reference, it doesn't go in.
    ```
 3. Follow the structure of the existing skills:
 
-   - **The problem / principle** — what goes wrong, or the rule.
-   - **Pattern** — a minimal, compilable Solidity snippet.
+   - **The problem / principle**: what goes wrong, or the rule.
+   - **Pattern**: a minimal, compilable Solidity snippet.
    - **Design notes / variants** — tradeoffs, gas, alternatives.
-   - **Checklist** — a `- [ ]` list a reviewer can run against a diff.
-   - **References** — file paths in the source repos and/or *Mastering Ethereum* sections.
+   - **Checklist**: a `- [ ]` list a reviewer can run against a diff.
+   - **References**: file paths in the source repos and/or *Mastering Ethereum* sections.
 4. Add a row to the **Skills** table in `README.md`.
 
 ## Editing an existing skill
 
-- Keep the tone factual and dense. State what a thing is, then stop.
+- State what a thing is, then stop.
 - Don't add a rejected-alternative essay; a one-line tradeoff note is enough.
 - If you change a claim, update or add its reference.
 
