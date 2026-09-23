@@ -26,6 +26,7 @@ Solmate, Morpho-blue, Sablier, Merit, Uniswap, Aave, …) and the security chapt
 | [oracle-safety](skills/oracle-safety/SKILL.md) | Staleness, bounds, TWAP over spot, report/dispute/apply | On-chain logic depending on any value from outside the contract |
 | [proxy-upgrade-safety](skills/proxy-upgrade-safety/SKILL.md) | Disable initializers, guard `_authorizeUpgrade`, storage layout/gaps | A contract sits behind a proxy (Transparent/UUPS/Beacon) or upgrades |
 | [weak-rng](skills/weak-rng/SKILL.md) | Why block data is never random; Chainlink VRF, commit–reveal | Lotteries, raffles, NFT trait rolls, any random outcome with value |
+| [dos-unbounded-operations](skills/dos-unbounded-operations/SKILL.md) | Unbounded loops, push-payment griefing, pull over push, pagination | Distributions, batch payouts, refunds, any attacker-growable loop |
 
 ## Install
 
