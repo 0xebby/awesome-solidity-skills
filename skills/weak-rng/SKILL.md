@@ -16,7 +16,7 @@ Sources that are all unsafe for value-bearing randomness:
 
 - `block.timestamp`, `block.number`, `block.difficulty` / `block.prevrandao`, `blockhash(...)`,
   `gasleft()` — readable by any contract in the same transaction.
-- `keccak256(abi.encode(msg.sender, block.timestamp, block.prevrandao))` — the canonical broken
+- `keccak256(abi.encode(msg.sender, block.timestamp, block.prevrandao))` the canonical broken
   raffle seed. An attacker computes the winning index in a `view` and only enters when they win.
 - `blockhash(block.number)` is always `0` (the current block hash isn't known yet), and
   `blockhash` returns `0` for blocks older than 256.
@@ -85,4 +85,4 @@ withhold blocks. Acceptable only for outcomes where a 1-bit bias and re-roll are
 - Chainlink `@chainlink/contracts/src/v0.8/vrf/dev/VRFConsumerBaseV2Plus.sol`
 - Solidity docs: `block` and `blockhash` semantics (blockhash valid for last 256 blocks only)
 - *Mastering Ethereum*, ch. 9: "Entropy Illusion"
-- Cyfrin security course, §4: Weak RNG (motivating case: Puppy Raffle)
+- Cyfrin security course, no.4: Weak RNG (motivating case: Puppy Raffle)
