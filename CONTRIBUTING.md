@@ -18,7 +18,7 @@ protocol) or to a specific security reference, it doesn't go in.
    ```yaml
    ---
    name: your-skill-name          # must match the directory name
-   description: One or two sentences. Say what it does AND when to use it — this is what Claude matches on.
+   description: One or two sentences. Say what it does AND when to use it.
    ---
    ```
 3. Follow the structure of the existing skills:
