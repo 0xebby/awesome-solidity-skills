@@ -1,7 +1,10 @@
 # Contributing
 
-Thanks for helping grow this collection. Pull requests are welcome: a. new skills, b. corrections to
-existing ones, c. better reference snippets, and d. gas/security updates as the ecosystem moves.
+Thanks for helping grow this collection. Pull requests are welcome: 
+a. new skills, 
+b. corrections to existing ones, 
+c. better reference snippets, and 
+d. gas/security updates as the ecosystem moves.
 
 ## The one rule
 
@@ -25,7 +28,7 @@ protocol) or to a specific security reference, it doesn't go in.
 
    - **The problem / principle**: what goes wrong, or the rule.
    - **Pattern**: a minimal, compilable Solidity snippet.
-   - **Design notes / variants** — tradeoffs, gas, alternatives.
+   - **Design notes / variants**: tradeoffs, gas, alternatives.
    - **Checklist**: a `- [ ]` list a reviewer can run against a diff.
    - **References**: file paths in the source repos and/or *Mastering Ethereum* sections.
 4. Add a row to the **Skills** table in `README.md`.
