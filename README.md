@@ -24,6 +24,7 @@ Solmate, Morpho-blue, Sablier, Merit, Uniswap, Aave, …) and the security chapt
 | [singleton-vs-clones](skills/singleton-vs-clones/SKILL.md) | Full deploy vs EIP-1167 clones vs params-hash singleton | A factory that creates many instances of the same logic |
 | [fixed-point-rounding](skills/fixed-point-rounding/SKILL.md) | Full-precision `mulDiv`, round in the protocol's favor | Computing shares, proportional payouts, interest, prices |
 | [oracle-safety](skills/oracle-safety/SKILL.md) | Staleness, bounds, TWAP over spot, report/dispute/apply | On-chain logic depending on any value from outside the contract |
+| [proxy-upgrade-safety](skills/proxy-upgrade-safety/SKILL.md) | Disable initializers, guard `_authorizeUpgrade`, storage layout/gaps | A contract sits behind a proxy (Transparent/UUPS/Beacon) or upgrades |
 
 ## Install
 
