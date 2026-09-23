@@ -1,6 +1,6 @@
 ---
 name: proxy-upgrade-safety
-description: Ship upgradeable contracts without bricking them — disable initializers on the implementation, guard the upgrade authorization, and never break storage layout between versions. Use whenever a contract sits behind a proxy (Transparent, UUPS, or Beacon) or uses delegatecall to shared logic.
+description: Ship upgradeable contracts without bricking them; disable initializers on the implementation, guard the upgrade authorization, and never break storage layout between versions. Use whenever a contract sits behind a proxy (Transparent, UUPS, or Beacon) or uses delegatecall to shared logic.
 ---
 # Proxy & upgrade safety
 
@@ -12,7 +12,7 @@ the `ThunderLoan` audit):
 
 - **Uninitialized implementation.** Constructors run in the *implementation's* own context, not the
   proxy's, so upgradeable contracts move setup into an `initialize()` function. If the implementation
-  contract itself is left uninitialized, an attacker can call `initialize()` on it directly — and for
+  contract itself is left uninitialized, an attacker can call `initialize()` on it directly and for
   **UUPS**, become its owner and `upgradeToAndCall` into a `selfdestruct`, bricking every proxy that
   points at it. This is the OpenZeppelin UUPS uninitialized-implementation issue.
 - **Storage collision.** Reordering, inserting, changing the type of, or removing a state variable
@@ -66,7 +66,7 @@ above it.
   through it); UUPS puts it in the implementation (cheaper, but you must include `_authorizeUpgrade`
   or the contract is not upgradeable — and must not remove it); Beacon upgrades many proxies at once.
 - **Validate layout automatically.** The OpenZeppelin Upgrades plugin (Hardhat/Foundry) diffs
-  storage layout and blocks unsafe upgrades in CI — use it rather than eyeballing slots.
+  storage layout and blocks unsafe upgrades in CI use it rather than eyeballing slots.
 - **Namespaced storage (ERC-7201)** places a contract's state at a hashed base slot, eliminating
   collision between modules and making gaps unnecessary; prefer it in new upgradeable code.
 - `immutable`/`constant` values live in bytecode, not storage, so they're safe across upgrades — but
@@ -86,4 +86,4 @@ above it.
 - OpenZeppelin `contracts-upgradeable`: `Initializable`, `UUPSUpgradeable`, `proxy/ERC1967/`
 - ERC-1967 (proxy storage slots), ERC-7201 (namespaced storage layout)
 - OpenZeppelin Upgrades plugin (storage-layout validation)
-- Cyfrin security course, §6: Centralization, Proxies & Oracles (motivating case: Thunder Loan)
+- Cyfrin security course, no.6: Centralization, Proxies & Oracles (motivating case: Thunder Loan)
