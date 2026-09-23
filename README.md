@@ -25,6 +25,7 @@ Solmate, Morpho-blue, Sablier, Merit, Uniswap, Aave, …) and the security chapt
 | [fixed-point-rounding](skills/fixed-point-rounding/SKILL.md) | Full-precision `mulDiv`, round in the protocol's favor | Computing shares, proportional payouts, interest, prices |
 | [oracle-safety](skills/oracle-safety/SKILL.md) | Staleness, bounds, TWAP over spot, report/dispute/apply | On-chain logic depending on any value from outside the contract |
 | [proxy-upgrade-safety](skills/proxy-upgrade-safety/SKILL.md) | Disable initializers, guard `_authorizeUpgrade`, storage layout/gaps | A contract sits behind a proxy (Transparent/UUPS/Beacon) or upgrades |
+| [weak-rng](skills/weak-rng/SKILL.md) | Why block data is never random; Chainlink VRF, commit–reveal | Lotteries, raffles, NFT trait rolls, any random outcome with value |
 
 ## Install
 
