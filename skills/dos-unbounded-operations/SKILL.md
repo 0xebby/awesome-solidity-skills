@@ -1,6 +1,6 @@
 ---
 name: dos-unbounded-operations
-description: Keep functions available under adversarial input — no unbounded loops over attacker-growable data, and one recipient can never block everyone. Pull over push, bound the work, isolate external-call failure. Use for distributions, batch payouts, queues, refunds, or any loop whose length a user controls.
+description: Keep functions available under adversarial input: no unbounded loops over attacker-growable data, and one recipient can never block everyone. Pull over push, bound the work, isolate external-call failure. Use for distributions, batch payouts, queues, refunds, or any loop whose length a user controls.
 ---
 # DoS via unbounded operations
 
@@ -74,4 +74,4 @@ contract Distributor {
 - OpenZeppelin `contracts/security/PullPayment.sol`, `utils/escrow/Escrow.sol`
 - Solady `src/utils/SafeTransferLib.sol` (`GAS_STIPEND_NO_GRIEF`, `forceSafeTransferETH`)
 - *Mastering Ethereum*, ch. 9: "Denial of Service (DoS)"
-- Cyfrin security course, §4: DoS (motivating case: Puppy Raffle)
+- Cyfrin security course, no.4: DoS (motivating case: Puppy Raffle)
