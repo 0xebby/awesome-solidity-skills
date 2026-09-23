@@ -28,6 +28,7 @@ Solmate, Morpho-blue, Sablier, Merit, Uniswap, Aave, …) and the security chapt
 | [weak-rng](skills/weak-rng/SKILL.md) | Why block data is never random; Chainlink VRF, commit–reveal | Lotteries, raffles, NFT trait rolls, any random outcome with value |
 | [dos-unbounded-operations](skills/dos-unbounded-operations/SKILL.md) | Unbounded loops, push-payment griefing, pull over push, pagination | Distributions, batch payouts, refunds, any attacker-growable loop |
 | [private-data-on-chain](skills/private-data-on-chain/SKILL.md) | `private` isn't secret; storage is public; salted commit–reveal | Tempted to store a password, key, answer, or seed in state |
+| [mev-slippage-protection](skills/mev-slippage-protection/SKILL.md) | `minAmountOut`/`maxAmountIn` + a real deadline; sandwich defense | Swaps, liquidity ops, or anything priced off a pool in the mempool |
 
 ## Install
 
