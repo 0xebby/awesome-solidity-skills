@@ -1,14 +1,13 @@
 ---
 name: oracle-safety
-description: Consume external data (prices, off-chain metrics, aggregates) without trusting a single manipulable reading — staleness checks, bounds, TWAP over spot, and report/use separation with a dispute window. Use whenever on-chain logic depends on a value from outside the contract.
+description: Consume external data (prices, off-chain metrics, aggregates) without trusting a single manipulable reading: staleness checks, bounds, TWAP over spot, and report/use separation with a dispute window. Use whenever on-chain logic depends on a value from outside the contract.
 ---
-
 # Oracle safety
 
 ## The principle
 
-**Never trust a single spot reading you don't control.** Any value that enters from outside — a
-price feed, an off-chain metric, a reported aggregate — is an attack surface. The question is not
+**Never trust a single spot reading you don't control.** Any value that enters from outside a
+price feed, an off-chain metric, a reported aggregate is an attack surface. The question is not
 "is this oracle honest" but "what happens when this reading is wrong, stale, or manipulated in one
 block."
 
@@ -19,9 +18,9 @@ block."
 A spot price from a DEX pool can be moved with a flash loan inside a single transaction, read by your
 contract, and moved back. Don't read spot.
 
-- Use a **TWAP** (time-weighted average) — Uniswap v3's cumulative-tick observations average the
+- Use a **TWAP** (time-weighted average): Uniswap v3's cumulative-tick observations average the
   price over a window, so a one-block manipulation is diluted by the window length.
-- Or use a robust external feed (e.g. Chainlink) with the checks below.
+- Or use a robust external feed (e.g. **Chainlink**) with the checks below.
 
 ### Stale data
 
@@ -36,7 +35,7 @@ require(block.timestamp - updatedAt <= MAX_STALENESS, "stale price");   // heart
 ### Trusted-but-unverified reporter (off-chain computation pushed on-chain)
 
 When a value can only be computed off-chain (an aggregate, a scan of event logs, a KPI), you can't
-verify it on-chain — so **separate the report from its use with a challenge period**. This is the
+verify it on-chain, so **separate the report from its use with a challenge period**. This is the
 optimistic model:
 
 1. A permissioned reporter *submits* a value; it is stored with a `deadline = now + disputeWindow`.
@@ -61,10 +60,10 @@ and enforce that the target is real (e.g. a registry membership check) before st
 
 ## Cross-cutting rules
 
-- **Bound the move.** Reject a new value that jumps more than a sane delta from the last — catches
+- **Bound the move.** Reject a new value that jumps more than a sane delta from the last catches
   both fat-fingers and manipulation.
 - **Validate the domain.** Positive price, expected decimals, sane range.
-- **Fail closed.** On a missing/garbage reading, revert or fall back to a safe default — never
+- **Fail closed.** On a missing/garbage reading, revert or fall back to a safe default, never
   proceed on `0` as if it were a real value.
 - **Front-running.** Applying a matured report is often permissionless; make sure caller *ordering*
   between two pending reports can't misattribute or double-count (monotonic cumulative counters help).
@@ -81,4 +80,4 @@ and enforce that the target is real (e.g. a registry membership check) before st
 
 - Uniswap v3 `contracts/libraries/Oracle.sol` (TWAP observations)
 - Aave v2 price oracle; Chainlink `latestRoundData` patterns
-- Mastering Ethereum, ch. 11 "Oracles"; ch. 9 — "Price Manipulation"
+- Mastering Ethereum, ch. 11 "Oracles"; ch. 9: "Price Manipulation"

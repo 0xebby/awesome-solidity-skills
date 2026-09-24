@@ -1,8 +1,7 @@
 ---
 name: eip712-signature-verification
-description: Verify off-chain signatures safely — EIP-712 domain binding, single-use nonces, expiry, and malleability rejection. Use whenever a contract accepts a signed message (permits, meta-tx, attestations, claims, gasless approvals).
+description: Verify off-chain signatures safely: EIP-712 domain binding, single-use nonces, expiry, and malleability rejection. Use whenever a contract accepts a signed message (permits, meta-tx, attestations, claims, gasless approvals).
 ---
-
 # EIP-712 signature verification
 
 ## The principle
@@ -10,16 +9,14 @@ description: Verify off-chain signatures safely — EIP-712 domain binding, sing
 A signature is a **bearer token**. Whoever holds it can present it. It is only safe if the signed
 payload pins down everything that matters and can be used exactly once:
 
-1. **What and for whom** — the struct fields (amount, recipient, subject).
-2. **Where** — `chainId` + `verifyingContract`, so it can't be replayed on another chain or a
+1. **What and for whom:** the struct fields (amount, recipient, subject).
+2. **Where:**`chainId` + `verifyingContract`, so it can't be replayed on another chain or a
    sibling deployment.
-3. **When it stops being valid** — an `expiresAt`.
-4. **Only once** — a nonce or a consumed-id set.
-5. **Not malleable** — reject the high-`s` half; never treat `ecrecover`'s `address(0)` as valid.
+3. **When it stops being valid:** an `expiresAt`.
+4. **Only once:** a nonce or a consumed-id set.
+5. **Not malleable:** reject the high-`s` half; never treat `ecrecover`'s `address(0)` as valid.
 
-Miss any one and you have a replay, a cross-chain replay, or a forgery.
-
-## Pattern — OpenZeppelin EIP712 + ECDSA
+## Pattern: OpenZeppelin EIP712 + ECDSA
 
 ```solidity
 import {EIP712} from "@openzeppelin/contracts/utils/cryptography/EIP712.sol";
@@ -58,7 +55,7 @@ contract Claimer is EIP712 {
   otherwise recover the same signer, letting an attacker mint a *second distinct* signature for the
   same message) and returns an explicit error rather than `address(0)`. Never gate on
   `signer != address(0)` from raw `ecrecover`.
-- **Nonce / consumed-id** — increment (or mark used) before doing the work, so a re-submission of the
+- **Nonce / consumed-id:** increment (or mark used) before doing the work, so a re-submission of the
   same signature fails. For multi-signer schemes, also enforce *distinct* signers so one key can't
   fill a k-of-n threshold alone.
 
@@ -82,4 +79,4 @@ mark it consumed.
 - OpenZeppelin `contracts/utils/cryptography/EIP712.sol`, `ECDSA.sol`, `Nonces.sol`
 - Solady `src/utils/EIP712.sol`, `ECDSA.sol`
 - EIP-712; EIP-2612 (permit)
-- Mastering Ethereum, ch. 9 — "Signature Replay Attack"
+- Mastering Ethereum, ch. 9: "Signature Replay Attack"

@@ -1,4 +1,4 @@
-# Awesome Solidity Smart Contract Skills
+# Awesome Solidity Smart Contract Skills for Agents.
 
 Battle-tested smart-contract patterns, packaged as **[Claude Code](https://claude.com/claude-code)
 skills** you can drop into your own projects. Each skill is a focused, self-contained playbook for
@@ -24,6 +24,13 @@ Solmate, Morpho-blue, Sablier, Merit, Uniswap, Aave, …) and the security chapt
 | [singleton-vs-clones](skills/singleton-vs-clones/SKILL.md) | Full deploy vs EIP-1167 clones vs params-hash singleton | A factory that creates many instances of the same logic |
 | [fixed-point-rounding](skills/fixed-point-rounding/SKILL.md) | Full-precision `mulDiv`, round in the protocol's favor | Computing shares, proportional payouts, interest, prices |
 | [oracle-safety](skills/oracle-safety/SKILL.md) | Staleness, bounds, TWAP over spot, report/dispute/apply | On-chain logic depending on any value from outside the contract |
+| [proxy-upgrade-safety](skills/proxy-upgrade-safety/SKILL.md) | Disable initializers, guard `_authorizeUpgrade`, storage layout/gaps | A contract sits behind a proxy (Transparent/UUPS/Beacon) or upgrades |
+| [weak-rng](skills/weak-rng/SKILL.md) | Why block data is never random; Chainlink VRF, commit–reveal | Lotteries, raffles, NFT trait rolls, any random outcome with value |
+| [dos-unbounded-operations](skills/dos-unbounded-operations/SKILL.md) | Unbounded loops, push-payment griefing, pull over push, pagination | Distributions, batch payouts, refunds, any attacker-growable loop |
+| [private-data-on-chain](skills/private-data-on-chain/SKILL.md) | `private` isn't secret; storage is public; salted commit–reveal | Tempted to store a password, key, answer, or seed in state |
+| [mev-slippage-protection](skills/mev-slippage-protection/SKILL.md) | `minAmountOut`/`maxAmountIn` + a real deadline; sandwich defense | Swaps, liquidity ops, or anything priced off a pool in the mempool |
+| [governance-attack-resistance](skills/governance-attack-resistance/SKILL.md) | Past-block vote snapshots, timelock, quorum; flash-loan defense | On-chain voting, DAO proposals, token-weighted parameter changes |
+| [invariant-testing](skills/invariant-testing/SKILL.md) | Name the invariant, fuzz call sequences via a bounded handler | Hardening or auditing any stateful protocol (vaults, AMMs, lending) |
 
 ## Install
 
@@ -33,21 +40,21 @@ loads a skill on its own when a task matches the skill's `description`.
 **All skills (clone into your project):**
 
 ```bash
-git clone https://github.com/0xebby/awesome-solidity-skills.git
+git clone https://github.com/mystic0xx/awesome-solidity-smart-contracts-skills.git
 mkdir -p .claude/skills
-cp -r awesome-solidity-skills/skills/* .claude/skills/
+cp -r awesome-solidity-smart-contracts-skills/skills/* .claude/skills/
 ```
 
 **Personal (available in every project):**
 
 ```bash
-cp -r awesome-solidity-skills/skills/* ~/.claude/skills/
+cp -r awesome-solidity-smart-contracts-skills/skills/* ~/.claude/skills/
 ```
 
 **One skill only:**
 
 ```bash
-cp -r awesome-solidity-skills/skills/reentrancy-guards ~/.claude/skills/
+cp -r awesome-solidity-smart-contracts-skills/skills/reentrancy-guards ~/.claude/skills/
 ```
 
 Each skill is just a directory containing a `SKILL.md` with YAML frontmatter (`name`, `description`)
@@ -74,7 +81,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). The bar: every claim traceable to real, 
 
 ## Author
 
-Created and maintained by [**0xebby**](https://github.com/0xebby).
+Created and maintained by [**mystic0xx**](https://github.com/mystic0xx).
 
 ## License
 

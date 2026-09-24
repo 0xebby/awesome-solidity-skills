@@ -1,8 +1,7 @@
 ---
 name: escrow-accounting
-description: Custody and release funds correctly — internal ledger over balanceOf, debit-before-transfer, pull payments, and an explicit state machine with terminal states. Use when building escrow, vesting, streaming, payment splitters, or any hold-and-release vault.
+description: Custody and release funds correctly; internal ledger over balanceOf, debit-before-transfer, pull payments, and an explicit state machine with terminal states. Use when building escrow, vesting, streaming, payment splitters, or any hold-and-release vault.
 ---
-
 # Escrow accounting
 
 ## The principle
@@ -30,7 +29,7 @@ function deposit(uint256 amount) external {
 }
 ```
 
-### 2. Debit before transfer (checks-effects-interactions)
+### 2. Debit before transfer (checks-effects-interactions CEI)
 
 Every payout debits the ledger *before* the external transfer, so a token with a transfer hook
 cannot re-enter and double-spend.
@@ -44,7 +43,7 @@ function release(address to, uint256 amount) external nonReentrant {
 }
 ```
 
-### 3. Pull over push
+### 3. Pull over Push
 
 Let the payee withdraw against a computed entitlement rather than pushing funds to a list of
 recipients. Push loops can be griefed (one reverting recipient blocks everyone) and hand control to
@@ -52,19 +51,18 @@ each recipient mid-loop. Sablier's `withdraw` is caller-initiated against `withd
 
 ### 4. Explicit state machine with terminal states
 
-Model the lifecycle as an enum and enforce legal transitions. Sablier: `PENDING → STREAMING →
-SETTLED / CANCELED / DEPLETED`. A canceled escrow is a one-way door; a depleted one cannot pay again.
+Model the lifecycle as an enum and enforce legal transitions. Sablier: `PENDING → STREAMING → SETTLED / CANCELED / DEPLETED`. A canceled escrow is a one-way door; a depleted one cannot pay again.
 The invariant to preserve: **`refundable + withdrawn + withdrawable == deposited`** at all times.
 
 ## Design notes
 
 - **Fees as basis points against a named constant** (e.g. `FEE_BASIS = 10_000`); fix the fee amount
   at deposit, don't recompute it at claim where inputs may have moved.
-- **Grace / cliff windows** — if claimants get a window after an end event, gate reclaim-by-owner
+- **Grace / cliff windows:** if claimants get a window after an end event, gate reclaim-by-owner
   until the window closes, so the owner can't sweep funds a claimant is still owed.
-- **`NoDelegateCall`** — for a singleton escrow, guard against being reached via `delegatecall`
+- **`NoDelegateCall`**  for a singleton escrow, guard against being reached via `delegatecall`
   (which would run your logic against a foreign storage layout).
-- **Round in the protocol's favor** — see the `fixed-point-rounding` skill; round *down* payouts.
+- **Round in the protocol's favor:** see the `fixed-point-rounding` skill; round *down* payouts.
 
 ## Checklist
 
@@ -79,4 +77,4 @@ The invariant to preserve: **`refundable + withdrawn + withdrawable == deposited
 
 - Sablier `lockup/src/SablierLockup.sol`, `bob/src/SablierEscrow.sol`
 - Merit `src/Escrow.sol`
-- Mastering Ethereum, ch. 9 — "Reentrancy", "Denial of Service"
+- Mastering Ethereum, ch. 9: "Reentrancy", "Denial of Service"

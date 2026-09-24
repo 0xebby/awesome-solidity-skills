@@ -1,7 +1,10 @@
 # Contributing
 
-Thanks for helping grow this collection. Pull requests are welcome — new skills, corrections to
-existing ones, better reference snippets, and gas/security updates as the ecosystem moves.
+Thanks for helping grow this collection. Pull requests are welcome: 
+a. new skills, 
+b. corrections to existing ones, 
+c. better reference snippets, and 
+d. gas/security updates as the ecosystem moves.
 
 ## The one rule
 
@@ -18,21 +21,21 @@ protocol) or to a specific security reference, it doesn't go in.
    ```yaml
    ---
    name: your-skill-name          # must match the directory name
-   description: One or two sentences. Say what it does AND when to use it — this is what Claude matches on.
+   description: One or two sentences. Say what it does AND when to use it.
    ---
    ```
-
 3. Follow the structure of the existing skills:
-   - **The problem / principle** — what goes wrong, or the rule.
-   - **Pattern** — a minimal, compilable Solidity snippet.
-   - **Design notes / variants** — tradeoffs, gas, alternatives.
-   - **Checklist** — a `- [ ]` list a reviewer can run against a diff.
-   - **References** — file paths in the source repos and/or *Mastering Ethereum* sections.
+
+   - **The problem / principle**: what goes wrong, or the rule.
+   - **Pattern**: a minimal, compilable Solidity snippet.
+   - **Design notes / variants**: tradeoffs, gas, alternatives.
+   - **Checklist**: a `- [ ]` list a reviewer can run against a diff.
+   - **References**: file paths in the source repos and/or *Mastering Ethereum* sections.
 4. Add a row to the **Skills** table in `README.md`.
 
 ## Editing an existing skill
 
-- Keep the tone factual and dense. State what a thing is, then stop.
+- State what a thing is, then stop.
 - Don't add a rejected-alternative essay; a one-line tradeoff note is enough.
 - If you change a claim, update or add its reference.
 
@@ -48,7 +51,7 @@ protocol) or to a specific security reference, it doesn't go in.
 ## What gets rejected
 
 - Unsourced patterns or "I think this is how it works."
-- Skills that duplicate an existing one — extend the existing skill instead.
+- Skills that duplicate an existing one: extend the existing skill instead.
 - Anything encouraging insecure shortcuts (skipping validation, disabling guards for gas, etc.)
   without a clearly documented, bounded rationale.
 - Marketing for a specific protocol or token.
@@ -61,9 +64,12 @@ skill has a `name` and `description` and the name matches its directory:
 ```bash
 for f in skills/*/SKILL.md; do
   dir=$(basename "$(dirname "$f")")
-  grep -q "^name: $dir$" "$f" || echo "MISMATCH: $f (name must equal '$dir')"
+  got=$(grep -m1 -E "^name:[[:space:]]*" "$f" | sed -E "s/^name:[[:space:]]*//; s/[[:space:]]+$//; s/\r$//")
+  [ "$got" = "$dir" ] || echo "MISMATCH: $f (name '$got' must equal '$dir')"
   grep -q "^description:" "$f" || echo "MISSING description: $f"
 done
 ```
 
-By contributing you agree your work is released under the repository's [MIT License](LICENSE).
+The `name` check tolerates extra spaces after the colon and CRLF line endings, matching CI.
+
+**By contributing you agree your work is released under the repository's [MIT License](LICENSE).**
